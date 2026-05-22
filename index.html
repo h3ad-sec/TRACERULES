@@ -532,9 +532,9 @@
       border: 1px solid rgba(245, 158, 11, 0.25);
     }
 
-    .platform-badge.pb-kql   { color: #4d94ff; background: rgba(77,148,255,0.10); border-color: rgba(77,148,255,0.25); }
-    .platform-badge.pb-sigma { color: #a855f7; background: rgba(168,85,247,0.10); border-color: rgba(168,85,247,0.25); }
-    .platform-badge.pb-xql   { color: #f59e0b; background: rgba(245,158,11,0.10); border-color: rgba(245,158,11,0.25); }
+    .platform-badge.pb-kql   { color: #4d94ff; background: rgba(77,148,255,0.10); border: 1px solid rgba(77,148,255,0.25); }
+    .platform-badge.pb-sigma { color: #a855f7; background: rgba(168,85,247,0.10); border: 1px solid rgba(168,85,247,0.25); }
+    .platform-badge.pb-xql   { color: #f59e0b; background: rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.25); }
 
     .platform-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
     .pt-btn {
@@ -1364,7 +1364,7 @@
     function tacticLine(entry) {
       var parts = [];
       if (entry.tacticName) parts.push(entry.tacticName);
-      if (entry.techniqueId) parts.push(entry.techniqueId);
+      if (entry.technique) parts.push(entry.technique);
       if (entry.techniqueName) parts.push(entry.techniqueName);
       return parts.join(' · ');
     }
@@ -1440,7 +1440,7 @@
         var haystack = [
           q.title || '', q.description || '',
           q.techniqueName || '', q.tacticName || '',
-          q.techniqueId || '',
+          q.technique || '',
           qPlatforms.join(' ')
         ].join(' ').toLowerCase();
         return haystack.indexOf(searchTerm) !== -1;
@@ -1583,7 +1583,7 @@
       for (var i = 0; i < platforms.length; i++) {
         var p = platforms[i];
         var isVerified = verified.indexOf(p) !== -1;
-        html += '<button class="pt-btn pt-' + p + (p === active ? ' active' : '') + '" onclick="switchPlatform(' + idx + ','' + p + '')">' + p.toUpperCase() + (isVerified ? ' ✓' : '') + '</button>';
+        html += '<button class="pt-btn pt-' + p + (p === active ? ' active' : '') + '" onclick="switchPlatform(' + idx + ',\'' + p + '\')">' + p.toUpperCase() + (isVerified ? ' ✓' : '') + '</button>';
       }
       html += '</div>';
       tabsEl.innerHTML = html;
@@ -1737,7 +1737,7 @@
         var qs = tacticMap[t.id];
         if (qs.length > 0) coveredTactics++;
         qs.forEach(function (q) {
-          if (q.techniqueId) totalTechniques[q.techniqueId] = true;
+          if (q.technique) totalTechniques[q.technique] = true;
         });
       });
 
@@ -1770,7 +1770,7 @@
           qs.forEach(function (q) {
             var platform = (Array.isArray(q.platforms) ? q.platforms[0] : (q.platform || 'kql')).toLowerCase();
             var badgeClass = platformBadgeClass(platform);
-            var techId = q.techniqueId ? escapeHtml(q.techniqueId) : '';
+            var techId = q.technique ? escapeHtml(q.technique) : '';
             var techName = q.techniqueName
               ? escapeHtml(q.techniqueName)
               : escapeHtml(q.title || 'Untitled');
