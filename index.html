@@ -1495,8 +1495,11 @@
       }
 
       var fileUrl = RAW_BASE + entry.file;
-      fetch(fileUrl)
+      var fc = new AbortController();
+      var ft = setTimeout(function () { fc.abort(); }, 10000);
+      fetch(fileUrl, { signal: fc.signal })
         .then(function (r) {
+          clearTimeout(ft);
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.text();
         })
@@ -1515,6 +1518,7 @@
           }
         })
         .catch(function (err) {
+          clearTimeout(ft);
           entry._queryBody = null;
           var pre = document.getElementById('code-' + idx);
           if (pre) pre.innerHTML = '<span class="code-error">FAILED TO LOAD: ' + escapeHtml(String(err)) + '</span>';
@@ -1650,8 +1654,11 @@
         + '<div class="state-loading-text">LOADING ARSENAL...</div>'
         + '</div>';
 
-      fetch(MANIFEST_URL)
+      var ctrl = new AbortController();
+      var tid = setTimeout(function () { ctrl.abort(); }, 10000);
+      fetch(MANIFEST_URL, { signal: ctrl.signal })
         .then(function (r) {
+          clearTimeout(tid);
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
@@ -1665,6 +1672,7 @@
           renderGrid(getFiltered());
         })
         .catch(function () {
+          clearTimeout(tid);
           showError();
         });
     }
