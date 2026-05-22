@@ -1528,8 +1528,7 @@
 
     // ── Multi-platform YAML parser ────────────────────────────────────────────────
     function parsePlatformQueriesFromYaml(yaml) {
-      var lines = yaml.split('
-');
+      var lines = yaml.split('\n');
       var queries = {};
       var inQueriesBlock = false;
       var currentPlatform = null;
@@ -1550,8 +1549,7 @@
           if (pm) {
             if (currentPlatform !== null) {
               while (currentLines.length && currentLines[currentLines.length - 1].trim() === '') currentLines.pop();
-              queries[currentPlatform] = currentLines.join('
-');
+              queries[currentPlatform] = currentLines.join('\n');
             }
             currentPlatform = pm[1].toLowerCase();
             currentLines = [];
@@ -1560,8 +1558,7 @@
           }
           if (currentPlatform !== null) {
             while (currentLines.length && currentLines[currentLines.length - 1].trim() === '') currentLines.pop();
-            queries[currentPlatform] = currentLines.join('
-');
+            queries[currentPlatform] = currentLines.join('\n');
           }
           break;
         }
@@ -1572,8 +1569,7 @@
       }
       if (currentPlatform !== null && currentLines.length > 0) {
         while (currentLines.length && currentLines[currentLines.length - 1].trim() === '') currentLines.pop();
-        queries[currentPlatform] = currentLines.join('
-');
+        queries[currentPlatform] = currentLines.join('\n');
       }
       return queries;
     }
