@@ -31,7 +31,6 @@
       --status-partial: #f59e0b;
       --status-soon: #2d3748;
       --nav-h: 48px;
-      --topbar-h: 56px;
       --filterbar-h: 48px;
       --mono: 'Share Tech Mono', monospace;
     }
@@ -341,100 +340,10 @@
       flex-direction: column;
     }
 
-    /* ── Hero / topbar strip ───────────────────────────────────────────── */
-    .tracer-hero {
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      z-index: 50;
-      background: var(--panel-alt);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      height: var(--topbar-h);
-    }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .hero-breadcrumb {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      margin-bottom: 2px;
-    }
-
-    .hero-breadcrumb a {
-      color: var(--muted);
-    }
-
-    .hero-breadcrumb a:hover {
-      color: var(--accent);
-      opacity: 1;
-    }
-
-    .hero-breadcrumb span {
-      color: var(--accent);
-      opacity: 0.6;
-      margin: 0 5px;
-    }
-
-    .hero-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .hero-title {
-      font-family: 'Exo 2', sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      line-height: 1;
-    }
-
-    .hero-tagline {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-    }
-
-    .hero-right {
-      display: flex;
-      align-items: center;
-    }
-
-    .arsenal-badge {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      background: var(--primary-dim);
-      border: 1px solid rgba(0, 212, 255, 0.25);
-      padding: 4px 12px;
-      border-radius: 3px;
-      letter-spacing: 0.1em;
-    }
-
-    body.light .arsenal-badge {
-      background: var(--primary-dim);
-      border-color: rgba(2, 132, 199, 0.28);
-    }
-
     /* ── Filter bar ────────────────────────────────────────────────────── */
     .filter-bar {
       position: sticky;
-      top: calc(var(--nav-h) + var(--topbar-h));
+      top: var(--nav-h);
       z-index: 40;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
@@ -524,7 +433,7 @@
     /* ── Main content ──────────────────────────────────────────────────── */
     .main-content {
       flex: 1;
-      padding: calc(var(--topbar-h) + var(--filterbar-h) + 20px) 20px 40px;
+      padding: 20px 20px 40px;
     }
 
     .query-count {
@@ -622,6 +531,28 @@
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid rgba(245, 158, 11, 0.25);
     }
+
+    .platform-badge.pb-kql   { color: #4d94ff; background: rgba(77,148,255,0.10); border-color: rgba(77,148,255,0.25); }
+    .platform-badge.pb-sigma { color: #a855f7; background: rgba(168,85,247,0.10); border-color: rgba(168,85,247,0.25); }
+    .platform-badge.pb-xql   { color: #f59e0b; background: rgba(245,158,11,0.10); border-color: rgba(245,158,11,0.25); }
+
+    .platform-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+    .pt-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.14s;
+    }
+    .pt-btn:hover { color: var(--text); border-color: var(--muted); }
+    .pt-btn.pt-xql.active   { color: #f59e0b; border-color: #f59e0b; background: rgba(245,158,11,0.08); }
+    .pt-btn.pt-kql.active   { color: #4d94ff; border-color: #4d94ff; background: rgba(77,148,255,0.08); }
+    .pt-btn.pt-sigma.active { color: #a855f7; border-color: #a855f7; background: rgba(168,85,247,0.08); }
 
     .card-tactics {
       font-family: 'Share Tech Mono', monospace;
@@ -1035,17 +966,6 @@
 
     /* ── Responsive: tablet (≤768px) ──────────────────────────────────── */
     @media (max-width: 768px) {
-      .tracer-hero {
-        height: auto;
-        padding: 10px 14px;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-
-      .hero-title {
-        font-size: 16px;
-      }
-
       .filter-bar {
         height: auto;
         flex-wrap: wrap;
@@ -1079,34 +999,6 @@
 
     /* ── Responsive: mobile (≤480px) ──────────────────────────────────── */
     @media (max-width: 480px) {
-      :root {
-        --topbar-h: auto;
-      }
-
-      .tracer-hero {
-        position: static;
-        padding: 10px 12px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
-
-      .hero-breadcrumb {
-        font-size: 9px;
-      }
-
-      .hero-title {
-        font-size: 15px;
-      }
-
-      .hero-tagline {
-        font-size: 8px;
-      }
-
-      .arsenal-badge {
-        display: none;
-      }
-
       .filter-bar {
         position: static;
         height: auto;
@@ -1335,26 +1227,6 @@
   <!-- ── Page wrap ───────────────────────────────────────────────────────── -->
   <div class="page-wrap">
 
-    <!-- ── Hero strip ────────────────────────────────────────────────────── -->
-    <div class="tracer-hero">
-      <div class="hero-left">
-        <div class="hero-breadcrumb">
-          <a href="https://h3ad-sec.github.io" target="_blank" rel="noopener">H3AD-SEC</a>
-          <span>›</span>
-          <a href="https://h3ad-sec.github.io/H3AD-DETECT/" target="_blank" rel="noopener">H3AD-DETECT</a>
-          <span>›</span>
-          <a href="https://h3ad-sec.github.io/TRACERULES/">TRACERULES</a>
-        </div>
-        <div class="hero-title-row">
-          <span class="hero-title">TRACERULES</span>
-          <span class="hero-tagline">QUERY ARSENAL</span>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="arsenal-badge">ARSENAL</div>
-      </div>
-    </div>
-
     <!-- ── Filter bar ─────────────────────────────────────────────────────── -->
     <div class="filter-bar">
       <button class="filter-pill active" data-filter="all" onclick="setFilter('all')">ALL</button>
@@ -1484,6 +1356,11 @@
       return 'badge-kql';
     }
 
+    function platformBadgeHtml(p, verifiedArr) {
+      var v = Array.isArray(verifiedArr) && verifiedArr.indexOf(p.toLowerCase()) !== -1;
+      return '<span class="platform-badge pb-' + p.toLowerCase() + '">' + p.toUpperCase() + (v ? ' ✓' : '') + '</span>';
+    }
+
     function tacticLine(entry) {
       var parts = [];
       if (entry.tacticName) parts.push(entry.tacticName);
@@ -1501,8 +1378,9 @@
     }
 
     function buildCard(entry, idx) {
-      var platform = (entry.platform || 'kql').toLowerCase();
-      var badgeClass = platformBadgeClass(platform);
+      var platformsArr = Array.isArray(entry.platforms) ? entry.platforms : (entry.platform ? [entry.platform] : ['kql']);
+      var verified = entry.verified || [];
+      var platformBadges = platformsArr.map(function(p) { return platformBadgeHtml(p, verified); }).join('');
       var tactics = tacticLine(entry);
       var title = escapeHtml(entry.title || 'Untitled Query');
       var desc = escapeHtml(entry.description || '');
@@ -1510,7 +1388,7 @@
       return '<div class="query-card" id="card-' + idx + '">'
         + '<div class="card-top">'
         + '<div class="card-title">' + title + '</div>'
-        + '<span class="platform-badge ' + badgeClass + '">' + platform.toUpperCase() + '</span>'
+        + '<div style="display:flex;gap:4px;flex-wrap:wrap;flex-shrink:0;">' + platformBadges + '</div>'
         + '</div>'
         + (tactics ? '<div class="card-tactics">' + escapeHtml(tactics) + '</div>' : '')
         + (desc ? '<div class="card-desc">' + desc + '</div>' : '')
@@ -1518,6 +1396,7 @@
         + '<button class="btn-view" onclick="toggleView(' + idx + ')">&#x25B6; VIEW</button>'
         + '</div>'
         + '<div class="query-expanded" id="expanded-' + idx + '">'
+        + '<div id="ptabs-' + idx + '"></div>'
         + '<div class="code-block"><pre id="code-' + idx + '"><span class="code-loading">FETCHING QUERY...</span></pre></div>'
         + '<div class="expanded-actions">'
         + '<button class="btn-hide" onclick="toggleView(' + idx + ')">&#x25B2; HIDE</button>'
@@ -1554,13 +1433,15 @@
 
     function getFiltered() {
       return allQueries.filter(function (q) {
-        var matchPlatform = activeFilter === 'all' || (q.platform || '').toLowerCase() === activeFilter;
+        var qPlatforms = Array.isArray(q.platforms) ? q.platforms : (q.platform ? [q.platform] : []);
+        var matchPlatform = activeFilter === 'all' || qPlatforms.map(function(p){return p.toLowerCase();}).indexOf(activeFilter) !== -1;
         if (!matchPlatform) return false;
         if (!searchTerm) return true;
         var haystack = [
           q.title || '', q.description || '',
           q.techniqueName || '', q.tacticName || '',
-          q.techniqueId || '', q.platform || ''
+          q.techniqueId || '',
+          qPlatforms.join(' ')
         ].join(' ').toLowerCase();
         return haystack.indexOf(searchTerm) !== -1;
       });
